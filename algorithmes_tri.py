@@ -28,7 +28,6 @@ def tri_insertion(tableau):
     comps = 0
     start = time.time()
     for i in range(1, n):
-        print(tab)
         element_a_inserer = tab[i]
         j = i-1
         while j>=0 and tab[j] > element_a_inserer:
@@ -80,32 +79,39 @@ def partitionner(tab, debut, fin):
     pivot = tab[fin]
     i = debut - 1
     comparaisons = 0
+    echanges = 0
     for j in range(debut, fin):
         comparaisons += 1
         if tab[j] <= pivot:
             i += 1
             tab[i], tab[j] = tab[j], tab[i]
+            echanges += 1
     tab[i+1], tab[fin] = tab[fin], tab[i+1]
-    return i + 1, comparaisons
+    echanges += 1
+    return i + 1, comparaisons, echanges
 
 def tri_rapide(tableau, debut=0, fin=None):
     if fin is None:
         fin = len(tableau) - 1
         tableau = list(tableau)
     comparaisons = 0
+    echanges = 0
     if debut < fin:
-        position_pivot, comps = partitionner(tableau, debut, fin)
+        position_pivot, comps, echs = partitionner(tableau, debut, fin)
         comparaisons += comps
-        _, comps_left = tri_rapide(tableau, debut, position_pivot - 1)
+        echanges += echs
+        _, comps_left, echs_left = tri_rapide(tableau, debut, position_pivot - 1)
         comparaisons += comps_left
-        _, comps_right = tri_rapide(tableau, position_pivot + 1, fin)
+        echanges += echs_left
+        _, comps_right, echs_right = tri_rapide(tableau, position_pivot + 1, fin)
         comparaisons += comps_right
-    return tableau, comparaisons
+        echanges += echs_right
+    return tableau, comparaisons, echanges
 
 def tri_rapide_result(tableau):
     start = time.time()
-    resultat, nb_comparaisons = tri_rapide(tableau)
+    resultat, nb_comparaisons, nb_echanges = tri_rapide(tableau)
     end = time.time()
     timer = end - start
-    return resultat, nb_comparaisons, timer
+    return resultat, nb_comparaisons, nb_echanges, timer
 

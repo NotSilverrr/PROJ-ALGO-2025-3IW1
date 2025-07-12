@@ -34,7 +34,7 @@ def recherche_binaire(tableau, search, debut=0, fin=None, comparaisons=0, start_
         return recherche_binaire(tableau, search, debut, mid - 1, comparaisons, start_time)
     
 def recherche_min_max(tableau):
-    if len(tableau < 1):
+    if len(tableau) < 1:
         return False
     start = time.time()
 
@@ -54,7 +54,3 @@ def recherche_min_max(tableau):
     end = time.time()
     return (min_val, max_val, count, end-start)
 
-
-# print(recherche_lineaire([5,6,3,6,4,4,0,4,5,33,6,8,6,8], 6))
-# print(recherche_binaire([2,3,5,5,5,6,7,8,45,67,78], 78))
-print(recherche_min_max([5,6,3,6,4,4,9,4,5,33,6,8,6,8]))

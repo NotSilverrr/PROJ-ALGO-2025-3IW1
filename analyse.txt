@@ -1,0 +1,52 @@
+1 - 
+
+Les différence du temps de tri par prix ou par surface dépendait surtout de l'état de base des 
+données,celle qui était initialement trié de manière plus favorable ont été trié plus vite.
+
+2 - 
+
+En moyenne,le tri rapide est le plus rapide sur 1000 éléments,trier par prix semble plus rapide pour 
+cette methode avec cette quantité de données
+
+3 -
+
+Après plusieur executions, nous n'avons pas trouvé le tri fusion plus stable que le tri rapide,
+les deux avais des variances similaire dans leur temps d'executions.
+
+4 - 
+
+Pour 10 000 éléments, nous recommenderions le tri rapide car il semble gagner en efficacité par rapport
+au autre a chaque fois que le nombre d'élément augmente.
+
+5 - 
+
+Oui, on vois clairement que le temps d'execution des algorithmes de tri en O(n log n) augmente
+beacoup moin que celui des tri en O(n²)
+
+6 -
+
+Nous en avons trouvé 10 dans 500 éléments et 17 dans 1000 éléments,la différence de temps était minime
+
+7 -
+
+Oui,la recherche binaire est bien plus rapide car elle n'a effectué que 5 a 7 comparaisons pour trouver 
+le résultat, par conséquent le tri binaire sera plus efficace dans tout les cas ou le résultat n'est
+pas avant la 5 ou 7ème position,ce qui est plus fiable. 
+
+8 - 
+
+Min: 985.0€/m² (BOURGES) Max: 12777.0€/m² (PARIS) pour les 500
+Min: 985.0€/m² (BOURGES) Max: 13785.0€/m² (PARIS) pour les 1000
+
+9 -
+
+La recherche binaire n'est pas correct pour compter tous les apparts 3 pièces, car elle ne trouve 
+qu’une seule valeur précise. Il faut une recherche linéaire pour compter tous ceux qui 
+correspondent à la fois au type et au nombre de pièces.
+
+10 - 
+
+- Trier par prix croissant : tri rapide
+- Rechercher par ville : recherche linéaire
+- Filtrer par nombre de pièces : filtre linéaire
+- Afficher les plus chers/moins chers : recherche min/max
