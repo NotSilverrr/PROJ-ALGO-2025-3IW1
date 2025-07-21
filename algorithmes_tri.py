@@ -100,10 +100,10 @@ def tri_rapide(tableau, debut=0, fin=None):
         position_pivot, comps, echs = partitionner(tableau, debut, fin)
         comparaisons += comps
         echanges += echs
-        _, comps_left, echs_left = tri_rapide(tableau, debut, position_pivot - 1)
+        tab, comps_left, echs_left = tri_rapide(tableau, debut, position_pivot - 1)
         comparaisons += comps_left
         echanges += echs_left
-        _, comps_right, echs_right = tri_rapide(tableau, position_pivot + 1, fin)
+        tab, comps_right, echs_right = tri_rapide(tableau, position_pivot + 1, fin)
         comparaisons += comps_right
         echanges += echs_right
     return tableau, comparaisons, echanges

@@ -3,81 +3,81 @@ from algorithmes_recherche import recherche_lineaire, recherche_binaire, recherc
 from utilitaires import lire_csv, ecrire_resultats, extraire_colonne
 import time
 
-TAILLES_DE_TEST = [100, 500, 1000]
+LISTE_TAILLES = [100, 500, 1000]
 
-resultats_des_tests = []
-
-
-def effectuer_tests_de_tri(donnees_a_trier, taille_des_donnees):
-    liste_des_prix = extraire_colonne(donnees_a_trier, "prix")
-    resultats_des_tests.append(f"=== TRI PAR PRIX ({taille_des_donnees} éléments) ===")
-    liste_des_prix_copie = liste_des_prix.copy()
-    tableau_trie, nombre_de_comparaisons, nombre_d_echanges, temps_d_execution = tri_selection(liste_des_prix_copie.copy())
-    resultats_des_tests.append(f"Tri SÉLECTION par PRIX : {temps_d_execution:.4f}s | {nombre_de_comparaisons} comparaisons | {nombre_d_echanges} échanges")
-    tableau_trie, nombre_de_comparaisons, nombre_de_decalages, temps_d_execution = tri_insertion(liste_des_prix.copy())
-    resultats_des_tests.append(f"Tri INSERTION par PRIX : {temps_d_execution:.4f}s | {nombre_de_comparaisons} comparaisons | {nombre_de_decalages} décalages")
-    tableau_trie, nombre_de_comparaisons, temps_d_execution = tri_fusion_result(liste_des_prix.copy())
-    resultats_des_tests.append(f"Tri FUSION par PRIX : {temps_d_execution:.4f}s | {nombre_de_comparaisons} comparaisons")
-    tableau_trie, nombre_de_comparaisons, nombre_d_echanges, temps_d_execution = tri_rapide_result(liste_des_prix.copy())
-    resultats_des_tests.append(f"Tri RAPIDE par PRIX : {temps_d_execution:.4f}s | {nombre_de_comparaisons} comparaisons | {nombre_d_echanges} échanges")
-
-    liste_des_surfaces = extraire_colonne(donnees_a_trier, "surface")
-    resultats_des_tests.append(f"=== TRI PAR SURFACE ({taille_des_donnees} éléments) ===")
-    tableau_trie, nombre_de_comparaisons, nombre_d_echanges, temps_d_execution = tri_selection(liste_des_surfaces.copy())
-    resultats_des_tests.append(f"Tri SÉLECTION par SURFACE : {temps_d_execution:.4f}s | {nombre_de_comparaisons} comparaisons | {nombre_d_echanges} échanges")
-    tableau_trie, nombre_de_comparaisons, nombre_de_decalages, temps_d_execution = tri_insertion(liste_des_surfaces.copy())
-    resultats_des_tests.append(f"Tri INSERTION par SURFACE : {temps_d_execution:.4f}s | {nombre_de_comparaisons} comparaisons | {nombre_de_decalages} décalages")
-    tableau_trie, nombre_de_comparaisons, temps_d_execution = tri_fusion_result(liste_des_surfaces.copy())
-    resultats_des_tests.append(f"Tri FUSION par SURFACE : {temps_d_execution:.4f}s | {nombre_de_comparaisons} comparaisons")
-    tableau_trie, nombre_de_comparaisons, nombre_d_echanges, temps_d_execution = tri_rapide_result(liste_des_surfaces.copy())
-    resultats_des_tests.append(f"Tri RAPIDE par SURFACE : {temps_d_execution:.4f}s | {nombre_de_comparaisons} comparaisons | {nombre_d_echanges} échanges")
-
-def effectuer_tests_de_recherche(donnees_a_rechercher, taille_des_donnees):
-    if taille_des_donnees >= 500:
-        maisons_a_paris = [d for d in donnees_a_rechercher if d["type_local"] == "Maison" and d["commune"].upper() == "PARIS"]
-        compteur = 0
-        nombre_de_comparaisons = 0
-        debut = time.time()
-        for d in donnees_a_rechercher:
-            nombre_de_comparaisons += 1
-            if d["type_local"] == "Maison" and d["commune"].upper() == "PARIS":
-                compteur += 1
-        fin = time.time()
-        resultats_des_tests.append(f"Recherche linéaire MAISONS PARIS : {fin-debut:.4f}s | {nombre_de_comparaisons} comparaisons | Trouvées: {compteur}")
-
-        prix = extraire_colonne(donnees_a_rechercher, "prix")
-        prix_trie, _, _ = tri_fusion_result(prix.copy())
-        position, nombre_de_comparaisons, temps_d_execution = recherche_binaire(prix_trie, 350000)
-        resultats_des_tests.append(f"Recherche binaire PRIX 350000€ : {temps_d_execution:.4f}s | {nombre_de_comparaisons} comparaisons | Position: {position}")
-
-        prix_m2 = extraire_colonne(donnees_a_rechercher, "prix_m2")
-        min_valeur, max_valeur, nombre_de_comparaisons, temps_d_execution = recherche_min_max(prix_m2)
-        resultats_des_tests.append(f"Min/Max PRIX_M2 : {temps_d_execution:.4f}s | {nombre_de_comparaisons} comparaisons | Min: {min_valeur}€/m² | Max: {max_valeur}€/m²")
-
-        compteur = 0
-        nombre_de_comparaisons = 0
-        debut = time.time()
-        for d in donnees_a_rechercher:
-            nombre_de_comparaisons += 1
-            try:
-                if d["type_local"] == "Appartement" and int(d["nb_pieces"]) == 3:
-                    compteur += 1
-            except:
-                continue
-        fin = time.time()
-        resultats_des_tests.append(f"Recherche APPART 3P : {fin-debut:.4f}s | {nombre_de_comparaisons} comparaisons | Trouvés: {compteur}")
+journal_resultats = []
 
 def main():
-    for taille in TAILLES_DE_TEST:
-        donnees = lire_csv("Transactions immobilières.csv", taille)
-        effectuer_tests_de_tri(donnees, taille)
+    for taille_actuelle in LISTE_TAILLES:
+        donnees_chargees = lire_csv("Transactions immobilières.csv", taille_actuelle)
+        realiser_tests_tri(donnees_chargees, taille_actuelle)
 
-    for taille in TAILLES_DE_TEST:
-        donnees = lire_csv("Transactions immobilières.csv", taille)
-        if taille in [500, 1000]:
-            effectuer_tests_de_recherche(donnees, taille)
+    for taille_actuelle in LISTE_TAILLES:
+        donnees_chargees = lire_csv("Transactions immobilières.csv", taille_actuelle)
+        if taille_actuelle in [500, 1000]:
+            realiser_tests_recherche(donnees_chargees, taille_actuelle)
             
-    ecrire_resultats("resultats.txt", resultats_des_tests)
+    ecrire_resultats("resultats.txt", journal_resultats)
 
-if __name__ == "__main__":
-    main()
+def realiser_tests_tri(tab_donnees, nb_elements):
+    colonne_prix = extraire_colonne(tab_donnees, "prix")
+    journal_resultats.append(f"=== TRI PAR PRIX ({nb_elements} éléments) ===")
+    copie_prix = colonne_prix.copy()
+    resultat_tri, total_comparaisons, total_echanges, duree = tri_selection(copie_prix.copy())
+    journal_resultats.append(f"Tri SÉLECTION par PRIX : {duree:.4f}s | {total_comparaisons} comparaisons | {total_echanges} échanges")
+    resultat_tri, total_comparaisons, total_decalages, duree = tri_insertion(colonne_prix.copy())
+    journal_resultats.append(f"Tri INSERTION par PRIX : {duree:.4f}s | {total_comparaisons} comparaisons | {total_decalages} décalages")
+    resultat_tri, total_comparaisons, duree = tri_fusion_result(colonne_prix.copy())
+    journal_resultats.append(f"Tri FUSION par PRIX : {duree:.4f}s | {total_comparaisons} comparaisons")
+    resultat_tri, total_comparaisons, total_echanges, duree = tri_rapide_result(colonne_prix.copy())
+    journal_resultats.append(f"Tri RAPIDE par PRIX : {duree:.4f}s | {total_comparaisons} comparaisons | {total_echanges} échanges")
+
+    colonne_surface = extraire_colonne(tab_donnees, "surface")
+    journal_resultats.append(f"=== TRI PAR SURFACE ({nb_elements} éléments) ===")
+    resultat_tri, total_comparaisons, total_echanges, duree = tri_selection(colonne_surface.copy())
+    journal_resultats.append(f"Tri SÉLECTION par SURFACE : {duree:.4f}s | {total_comparaisons} comparaisons | {total_echanges} échanges")
+    resultat_tri, total_comparaisons, total_decalages, duree = tri_insertion(colonne_surface.copy())
+    journal_resultats.append(f"Tri INSERTION par SURFACE : {duree:.4f}s | {total_comparaisons} comparaisons | {total_decalages} décalages")
+    resultat_tri, total_comparaisons, duree = tri_fusion_result(colonne_surface.copy())
+    journal_resultats.append(f"Tri FUSION par SURFACE : {duree:.4f}s | {total_comparaisons} comparaisons")
+    resultat_tri, total_comparaisons, total_echanges, duree = tri_rapide_result(colonne_surface.copy())
+    journal_resultats.append(f"Tri RAPIDE par SURFACE : {duree:.4f}s | {total_comparaisons} comparaisons | {total_echanges} échanges")
+
+def realiser_tests_recherche(tab_recherche, taille_recherche):
+    if taille_recherche >= 500:
+        liste_maisons_paris = [elem for elem in tab_recherche if elem["type_local"] == "Maison" and elem["commune"].upper() == "PARIS"]
+        compteur_maisons = 0
+        nb_comparaisons_maisons = 0
+        t_debut = time.time()
+        for elem in tab_recherche:
+            nb_comparaisons_maisons += 1
+            if elem["type_local"] == "Maison" and elem["commune"].upper() == "PARIS":
+                compteur_maisons += 1
+        t_fin = time.time()
+        journal_resultats.append(f"Recherche linéaire MAISONS PARIS : {t_fin-t_debut:.4f}s | {nb_comparaisons_maisons} comparaisons | Trouvées: {compteur_maisons}")
+
+        colonne_prix_recherche = extraire_colonne(tab_recherche, "prix")
+        prix_tries, _, _ = tri_fusion_result(colonne_prix_recherche.copy())
+        position_prix, nb_comp_prix, t_exec_prix = recherche_binaire(prix_tries, 350000)
+        journal_resultats.append(f"Recherche binaire PRIX 350000€ : {t_exec_prix:.4f}s | {nb_comp_prix} comparaisons | Position: {position_prix}")
+
+        colonne_prix_m2 = extraire_colonne(tab_recherche, "prix_m2")
+        min_m2, max_m2, nb_comp_m2, t_exec_m2 = recherche_min_max(colonne_prix_m2)
+        journal_resultats.append(f"Min/Max PRIX_M2 : {t_exec_m2:.4f}s | {nb_comp_m2} comparaisons | Min: {min_m2}€/m² | Max: {max_m2}€/m²")
+
+        compteur_appart = 0
+        nb_comp_appart = 0
+        t_debut = time.time()
+        for elem in tab_recherche:
+            nb_comp_appart += 1
+            try:
+                if elem["type_local"] == "Appartement" and int(elem["nb_pieces"]) == 3:
+                    compteur_appart += 1
+            except:
+                continue
+        t_fin = time.time()
+        journal_resultats.append(f"Recherche APPART 3P : {t_fin-t_debut:.4f}s | {nb_comp_appart} comparaisons | Trouvés: {compteur_appart}")
+
+
+
+main()
