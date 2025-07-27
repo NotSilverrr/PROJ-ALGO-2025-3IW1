@@ -1,41 +1,73 @@
-1 - 
+1 - Y a-t-il une différence de performance entre trier par prix vs trier par surface ? Laquelle et
+pourquoi ?
 
-L'efficacité du tri par prix ou par surface était principalement déterminée par l'ordre initial des données. Les jeux de données pré-triés de manière optimale ont été plus rapides à traiter.
+L'efficacité du tri par prix ou par surface était principalement déterminée par l'ordre initial des données. 
+Les jeux de données pré-triés de manière optimale ont été plus rapides à traiter.
 
-2 - 
 
-Sur un échantillon de 1000 éléments, le tri rapide s'est avéré le plus performant en moyenne, avec une légère préférence pour le tri par prix.
 
-3 - 
+2 - Quel algorithme de tri est le plus rapide sur 1000 biens immobiliers ? Le classement changet-il selon le 
+critère (prix/surface) ?
 
-Après plusieurs tests, nous n'avons pas observé de stabilité particulière du tri fusion par rapport au tri rapide. Les deux algorithmes présentaient des variations similaires dans leurs temps d'exécution.
+Sur un échantillon de 1000 éléments, le tri rapide s'est avéré le plus performant en moyenne, avec une légère 
+préférence pour le tri par prix.
 
-4 - 
+
+
+3 - Le tri fusion est-il plus stable que le tri rapide pour les données immobilières ? Observez
+plusieurs exécutions.
+
+Après plusieurs tests, nous n'avons pas observé de stabilité particulière du tri fusion par rapport au tri rapide. 
+Les deux algorithmes présentaient des variations similaires dans leurs temps d'exécution.
+
+
+
+4 - Pour trier 10 000 annonces immobilières par prix, quel algorithme recommanderiez-vous et pourquoi ?
 
 Pour 10 000 éléments, nous recommanderions le tri rapide qui gagne en efficacité à mesure que la taille du jeu de données augmente.
 
-5 - 
 
-Oui, nous avons constaté que les algorithmes de tri en O(n log n) présentaient une croissance beaucoup plus faible de leur temps d'exécution par rapport aux algorithmes en O(n²).
 
-6 - 
+5 - Avez-vous observé des différences significatives entre O(n²) et O(n log n) sur vos données réelles ?
 
-Nous avons trouvé 10 appartements dans un échantillon de 500 éléments et 17 dans un échantillon de 1000 éléments, avec des différences de temps négligeables.
+Oui, nous avons constaté que les algorithmes de tri en O(n log n) présentaient une croissance beaucoup plus faible de leur temps 
+d'exécution par rapport aux algorithmes en O(n²).
 
-7 - 
 
-Oui, la recherche binaire est nettement plus rapide car elle nécessite entre 5 et 7 comparaisons pour trouver le résultat. Elle sera donc plus efficace dans tous les cas où le résultat n'est pas trouvé dans les 5 ou 7 premières positions, ce qui est statistiquement plus probable.
 
-8 - 
+6 - Combien de maisons à Paris avez-vous trouvées dans 500 vs 1000 éléments ? Y a-t-il une
+différence de temps proportionnelle ?
+
+Nous avons trouvé 10 appartements dans un échantillon de 500 éléments et 17 dans un échantillon de 1000 éléments, 
+avec des différences de temps négligeables.
+
+
+
+7 -  La recherche binaire du prix 350000€ est-elle plus rapide que la recherche linéaire ? Par quel
+facteur ?
+
+Oui, la recherche binaire est nettement plus rapide car elle nécessite entre 5 et 7 comparaisons pour trouver le résultat. 
+Elle sera donc plus efficace dans tous les cas où le résultat n'est pas trouvé dans les 5 ou 7 premières positions, ce qui est 
+statistiquement plus probable.
+
+
+
+8 - Quels sont les prix au m² min/max que vous avez trouvés ? Dans quelles villes ?
 
 Pour 500 éléments : Prix minimum : 985.0€/m² (BOURGES) - Prix maximum : 12777.0€/m² (PARIS)
 Pour 1000 éléments : Prix minimum : 985.0€/m² (BOURGES) - Prix maximum : 13785.0€/m² (PARIS)
 
-9 - 
 
-La recherche binaire n'est pas adaptée pour compter tous les appartements de 3 pièces car elle ne trouve qu'une seule valeur précise. Une recherche linéaire est nécessaire pour compter tous les biens correspondant au type et au nombre de pièces.
 
-10 - 
+9 - Pour compter tous les appartements 3 pièces, pourquoi la recherche binaire n'est-elle pas
+adaptée ?
+
+La recherche binaire n'est pas adaptée pour compter tous les appartements de 3 pièces car elle ne trouve qu'une seule valeur précise. 
+Une recherche linéaire est nécessaire pour compter tous les biens correspondant au type et au nombre de pièces.
+
+
+
+10 - Si vous créiez un site immobilier, quels algorithmes utiliseriez-vous pour :
 
 - Trier par prix croissant : tri rapide
 - Rechercher par ville : recherche linéaire
